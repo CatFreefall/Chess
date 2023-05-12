@@ -1,5 +1,5 @@
 import pygame as p
-from src.Config import *
+from Config import *
 
 p.init()
 
