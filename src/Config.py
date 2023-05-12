@@ -1,4 +1,4 @@
-#TODO: Change config.py to config.cfg
+#TODO: Change config.py to a config.cfg file
 
 # dimensions of game window
 WINDOW_WIDTH = 640
