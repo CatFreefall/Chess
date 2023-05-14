@@ -1,11 +1,11 @@
 import pygame as p
 
 from config import WINDOW_WIDTH, WINDOW_HEIGHT
-from board import initializeBoard
+from Board import Board
 
 p.init()
 
-gameWindow = p.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+game_window = p.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
 while True:
   for event in p.event.get():
@@ -13,5 +13,5 @@ while True:
       p.quit()
       quit()
     else:
-      initializeBoard(gameWindow)
+      Board(game_window)
       p.display.update()

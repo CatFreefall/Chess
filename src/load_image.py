@@ -7,4 +7,4 @@ def load_tile(location):
   return p.transform.smoothscale(p.image.load(location), (TILE_SIZE - TILE_BORDER, TILE_SIZE - TILE_BORDER))
 
 def load_piece(location):
-  return p.transform.smoothscale(p.image.load(location), (PIECE_SIZE, PIECE_SIZE))
+  return p.transform.scale(p.image.load(location), (PIECE_SIZE, PIECE_SIZE))
