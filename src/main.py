@@ -25,9 +25,17 @@ while True:
     previous_tile_pos = current_tile_pos
     current_tile_pos = p.mouse.get_pos()
 
-    if (previous_tile_pos != None):
+    # tile clicked is previous tile, in this case, unclick it
+    if (previous_tile_pos != None and get_clicked_tile(current_tile_pos) == get_clicked_tile(previous_tile_pos)):
+      current_game.toggle_clicked_tile(current_tile_pos)
+      current_tile_pos = None
+      continue
+
+    # tile clicked is not previous tile, in this clase, unclick previous tile
+    elif (previous_tile_pos != None):
       current_game.toggle_clicked_tile(previous_tile_pos)
-    print(get_clicked_tile(current_tile_pos))
+
+    # click current tile
     current_game.toggle_clicked_tile(current_tile_pos)
 
   else:
