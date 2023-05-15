@@ -21,4 +21,7 @@ def initialize_board (game_window, game_board):
       if (game_pieces[j][i] != "________"):
         pieceCoordX = tileCoordX + PIECE_BORDER
         pieceCoordY = tileCoordY + PIECE_BORDER
+
+        game_board[j][i].is_occupied = True
+
         game_window.blit(game_pieces[j][i].convert_alpha(), (pieceCoordX, pieceCoordY))

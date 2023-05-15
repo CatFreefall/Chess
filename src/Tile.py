@@ -5,3 +5,4 @@ class Tile(p.Rect):
     p.Rect.__init__(self, dimensions)
     self.is_occupied = False
     self.colour = colour
+    self.is_clicked = False
