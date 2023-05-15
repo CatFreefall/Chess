@@ -1,9 +1,10 @@
 import pygame as p
 
 from config import WINDOW_SIZE
-from Board import Board
+from Board import Board, get_clicked_tile
 
-current_game = None
+current_tile_pos = None
+previous_tile_pos = None
 
 p.init()
 p.mouse.set_cursor(p.SYSTEM_CURSOR_HAND)
@@ -20,7 +21,14 @@ while True:
     quit()
 
   elif event.type == p.MOUSEBUTTONDOWN and event.button == 1:
-    current_game.toggle_clicked_tile(p.mouse.get_pos())
+    
+    previous_tile_pos = current_tile_pos
+    current_tile_pos = p.mouse.get_pos()
+
+    if (previous_tile_pos != None):
+      current_game.toggle_clicked_tile(previous_tile_pos)
+    print(get_clicked_tile(current_tile_pos))
+    current_game.toggle_clicked_tile(current_tile_pos)
 
   else:
     continue
