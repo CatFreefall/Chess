@@ -22,6 +22,6 @@ def initialize_board (game_window, game_board):
         pieceCoordX = tileCoordX + PIECE_BORDER
         pieceCoordY = tileCoordY + PIECE_BORDER
 
-        game_board[j][i].is_occupied = True
+        game_board[j][i].piece = game_pieces[j][i]
 
-        game_window.blit(game_pieces[j][i].convert_alpha(), (pieceCoordX, pieceCoordY))
+        game_window.blit(game_pieces[j][i].image.convert_alpha(), (pieceCoordX, pieceCoordY))

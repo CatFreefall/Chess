@@ -1,7 +1,7 @@
-from Piece import Piece
+from pieces.Piece import Piece
 
-class Rook(Piece):
-  def __init__(self, piece, colour, position):
-    super().__init__(piece, colour, position)
+class Bishop(Piece):
+  def __init__(self, piece_type, colour, loaded_image):
+    Piece.__init__(self, piece_type, colour, loaded_image)
     
-    self.move_set = ["up_right", "down_right", "down_left", "up_left"]
+    # self.move_set = ["up_right", "down_right", "down_left", "up_left"]

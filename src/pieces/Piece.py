@@ -1,14 +1,5 @@
 class Piece:
-    def __init__(self, piece, colour, position):
-      self.colour = colour
-      self.name = colour.upper() + "_" + piece.upper()
-
-      self.position = position
-
-        
-    def move(self, new_pos):
-      self.position = new_pos
-      self.initial_pos = False
-
-    def get_name(self):
-      return self.name
+    def __init__(self, piece_type, colour, loaded_image):
+        self.piece_type = piece_type
+        self.colour = colour
+        self.image = loaded_image

@@ -9,7 +9,6 @@ p.init()
 p.mouse.set_cursor(p.SYSTEM_CURSOR_HAND)
 
 game_window = p.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
-
 current_game = Board(game_window)
 p.display.update()
 
@@ -21,7 +20,7 @@ while True:
     quit()
 
   elif event.type == p.MOUSEBUTTONDOWN and event.button == 1:
-    current_game.change_clicked_tile(p.mouse.get_pos())
+    current_game.toggle_clicked_tile(p.mouse.get_pos())
 
   else:
     continue
