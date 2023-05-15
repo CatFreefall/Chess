@@ -1,16 +1,12 @@
-class pawn:
-    def __init__(self, colour, position):
-      self.piece = pawn
-      self.colour = colour
-      self.name = colour.upper() + "_PAWN"
+from Piece import Piece
 
-      self.position = position
-      self.initial_pos = True
+class Pawn(Piece):
+  def __init__(self, piece, colour, position):
+    super().__init__(piece, colour, position)
 
-        
-    def move(self, new_pos):
-      self.position = new_pos
-      self.initial_pos = False
-
-    def get_name(self):
-      return self.name
+    self.initial_pos = True
+    
+    if (colour == "white"):
+      self.move_set = ["up"]
+    else:
+      self.move_set = ["down"]
