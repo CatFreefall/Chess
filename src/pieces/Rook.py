@@ -4,9 +4,9 @@ class Rook(Piece):
   def __init__(self, piece_type, colour, loaded_image):
     Piece.__init__(self, piece_type, colour, loaded_image)
     
-    self.move_set = {
-      "top": [1, 2, 3, 4, 5, 6, 7],
-      "left": [1, 2, 3, 4, 5, 6, 7],
-      "bottom": [1, 2, 3, 4, 5, 6, 7],
-      "right": [1, 2, 3, 4, 5, 6, 7]
-    }
+    self.move_set = [
+      ["up", "up", "up", "up", "up", "up", "up"],
+      ["left", "left", "left", "left", "left", "left", "left"],
+      ["down", "down", "down", "down", "down", "down", "down"],
+      ["right", "right", "right", "right", "right", "right", "right"]
+    ]

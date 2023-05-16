@@ -8,22 +8,22 @@ class Pawn(Piece):
     match self.initial_pos:
       case True:
         if (self.colour == "white"):
-          self.move_set = {
-            "up": [1, 2]
-          }
+          self.move_set = [
+            ["up", "up"]
+          ]
         
         else:
-          self.move_set = {
-            "down": [1, 2]
-          }
+          self.move_set = [
+            ["down", "down"]
+          ]
       
       case False:
         if (self.colour == "white"):
-          self.move_set = {
-            "up": [1],
-          }
+          self.move_set = [
+            ["up"]
+          ]
         
         else:
-          self.move_set = {
-            "down": [1],
-          }
+          self.move_set = [
+            ["down"]
+          ]
