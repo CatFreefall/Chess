@@ -5,25 +5,33 @@ class Pawn(Piece):
     Piece.__init__(self, piece_type, colour, loaded_image)
     self.initial_pos = True
 
-    match self.initial_pos:
-      case True:
-        if (self.colour == "white"):
+    match self.colour:
+      case "white":
+        if (self.initial_pos == True):
           self.move_set = [
-            ["up", "up"]
+            ["up", "up"],
+            ["up_left"],
+            ["up_right"]
           ]
         
         else:
           self.move_set = [
-            ["down", "down"]
+            ["up"],
+            ["up_left"],
+            ["up_right"]
           ]
       
-      case False:
-        if (self.colour == "white"):
+      case "black":
+        if (self.initial_pos == True):
           self.move_set = [
-            ["up"]
+            ["down", "down"],
+            ["down_right"],
+            ["down_left"]
           ]
         
         else:
           self.move_set = [
-            ["down"]
+            ["down"],
+            ["down_right"],
+            ["down_left"]
           ]

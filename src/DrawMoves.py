@@ -44,11 +44,9 @@ class DrawMoves:
       else:
         self.game_board[clicked_tile[1]][clicked_tile[0]].is_clicked = True
 
-        # redrawing the tile and piece over the tile
         draw_tile(self.game_window, self.game_board, TILE_ORIGIN, clicked_tile)
         draw_piece(self.game_window, game_pieces, clicked_tile)
 
-        # displaying the clicked piece's move set and updating the window
         toggle_move_set(self.game_window, self.game_board, clicked_tile[0], clicked_tile[1])
         p.display.update()
 
@@ -87,12 +85,24 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
         if (0 <= current_index_x <= 7 and 0 <= current_index_y <= 7):
           if (game_board[current_index_y][current_index_x].piece != None):
             if (game_board[current_index_y][current_index_x].piece.colour != game_board[array_index_y][array_index_x].piece.colour):
+
+              # pawn's do not capture vertically.
+              if (game_board[array_index_y][array_index_x].piece.piece_type == "pawn"):
+                if (j == "up" or j == "down"):
+                  break
+
               draw_tile(game_window, game_board, TILE_CAPTURE, [current_index_x, current_index_y])
               draw_piece(game_window, game_pieces, [current_index_x, current_index_y])
               break
             else:
               break
           else:
+            
+            # pawn's cannot move vertically unless capturing
+            if (game_board[array_index_y][array_index_x].piece.piece_type == "pawn"):
+              if (j == "up_left" or j == "up_right" or j == "down_left" or j == "down_right"):
+                break
+
             draw_tile(game_window, game_board, TILE_DESTINATION, [current_index_x, current_index_y])
         else:
           break
@@ -113,6 +123,10 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
           if (game_board[current_index_y][current_index_x].piece != None):
             if (game_board[current_index_y][current_index_x].piece.colour != game_board[array_index_y][array_index_x].piece.colour):
               
+              if (game_board[array_index_y][array_index_x].piece.piece_type == "pawn"):
+                if (j == "up" or j == "down"):
+                  break
+
               tile_colour = game_board[current_index_y][current_index_x].colour
               draw_tile(game_window, game_board, tile_colour, [current_index_x, current_index_y])
               draw_piece(game_window, game_pieces, [current_index_x, current_index_y])
@@ -120,6 +134,11 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
             else:
               break
           else:
+            
+            if (game_board[array_index_y][array_index_x].piece.piece_type == "pawn"):
+              if (j == "up_left" or j == "up_right" or j == "down_left" or j == "down_right"):
+                break
+
             tile_colour = game_board[current_index_y][current_index_x].colour
             draw_tile(game_window, game_board, tile_colour, [current_index_x, current_index_y])
         else:

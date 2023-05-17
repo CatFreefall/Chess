@@ -17,9 +17,9 @@ game_pieces = [
   [BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, "________", BLACK_QUEEN, BLACK_BISHOP, BLACK_KNIGHT, BLACK_ROOK],
   [BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN, BLACK_PAWN],
   ["________", "________", "________", "________", "________", "________", "________", "________"],
-  ["________", "________", "________", "________", "________", "________", "________", "________"],
+  ["________", "________", "________", "________", "________", BLACK_KING, "________", "________"],
   ["________", "________", BLACK_KNIGHT, BLACK_ROOK, WHITE_QUEEN, WHITE_BISHOP, WHITE_BISHOP, "________"],
-  ["________", "________", "________", "________", "________", "________", "________", "________"],
+  ["________", BLACK_PAWN, "________", "________", "________", "________", "________", "________"],
   [WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN],
   [WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_KING, WHITE_QUEEN, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK]
 ]
