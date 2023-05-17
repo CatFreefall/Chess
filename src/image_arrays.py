@@ -1,5 +1,5 @@
 # from loaded_assets.loaded_tiles import *
-from loaded_assets.loaded_pieces import *
+from loaded_pieces import *
 from config import TILE_BLACK, TILE_WHITE
 
 game_tiles = [

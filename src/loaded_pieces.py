@@ -1,12 +1,15 @@
-from loaded_assets.load_image import load_piece
+import pygame as p
 
-
+from config import PIECE_SIZE
 from pieces.Pawn import Pawn
 from pieces.Rook import Rook
 from pieces.Knight import Knight
 from pieces.Bishop import Bishop
 from pieces.Queen import Queen
 from pieces.King import King
+
+def load_piece(location):
+  return p.transform.scale(p.image.load(location), (PIECE_SIZE, PIECE_SIZE))
 
 # white pieces
 WHITE_PAWN = Pawn("pawn", "white", load_piece("assets/pieces/white_pieces/Pawn-White.png"))
