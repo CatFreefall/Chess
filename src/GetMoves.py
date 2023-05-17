@@ -4,21 +4,12 @@ from initialize_board import initialize_board
 from image_arrays import game_pieces
 from config import *
 from get_clicked_tile import get_clicked_tile
+from GameBoard import GameBoard
 
-class DrawMoves:
+class GetMoves:
   def __init__(self, game_window):
     self.game_window = game_window
-
-    self.game_board = [
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None],
-      [None, None, None, None, None, None, None, None]
-    ]
+    self.game_board = GameBoard().game_board
     initialize_board(game_window, self.game_board)
 
   def toggle_clicked_tile(self, clicked_position):

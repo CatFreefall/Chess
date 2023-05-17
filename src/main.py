@@ -1,7 +1,7 @@
 import pygame as p
 
 from config import WINDOW_SIZE
-from DrawMoves import DrawMoves
+from GetMoves import GetMoves
 from get_clicked_tile import get_clicked_tile
 
 current_tile_pos = None
@@ -11,7 +11,7 @@ p.init()
 p.mouse.set_cursor(p.SYSTEM_CURSOR_HAND)
 
 game_window = p.display.set_mode((WINDOW_SIZE, WINDOW_SIZE))
-current_game = DrawMoves(game_window)
+current_game = GetMoves(game_window)
 p.display.update()
 
 while True:
