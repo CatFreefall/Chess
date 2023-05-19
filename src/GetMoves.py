@@ -1,45 +1,42 @@
 import pygame as p
 
-from initialize_board import initialize_board
 from image_arrays import game_pieces
 from config import *
 from get_clicked_tile import get_clicked_tile
-from GameBoard import GameBoard
 
-class GetMoves:
-  def __init__(self, game_window):
-    self.game_window = game_window
-    self.game_board = GameBoard().game_board
-    initialize_board(game_window, self.game_board)
 
-  def toggle_clicked_tile(self, clicked_position):
-    clicked_tile = get_clicked_tile(clicked_position)
+def hide_move_set(game_window, game_board, clicked_position):
+  clicked_tile = get_clicked_tile(clicked_position)
 
-    # tiles with no pieces should not be highlighted
-    if (self.game_board[clicked_tile[1]][clicked_tile[0]].piece != None):
+  # tiles with no pieces should not be highlighted
+  if (game_board[clicked_tile[1]][clicked_tile[0]].piece != None):
 
-      # if tile is already clicked, clicking it again should unhighlight it
-      if (self.game_board[clicked_tile[1]][clicked_tile[0]].is_clicked):
-        self.game_board[clicked_tile[1]][clicked_tile[0]].is_clicked = False
+    # if tile is already clicked, clicking it again should unhighlight it
+    if (game_board[clicked_tile[1]][clicked_tile[0]].is_clicked):
+      game_board[clicked_tile[1]][clicked_tile[0]].is_clicked = False
 
-        # redrawing the tile and piece over the tile
-        tile_colour = self.game_board[clicked_tile[1]][clicked_tile[0]].colour
-        draw_tile(self.game_window, self.game_board, tile_colour, clicked_tile)
-        draw_piece(self.game_window, game_pieces, clicked_tile)
+      # redrawing the tile and piece over the tile
+      tile_colour = game_board[clicked_tile[1]][clicked_tile[0]].colour
+      draw_tile(game_window, game_board, tile_colour, clicked_tile)
+      draw_piece(game_window, game_pieces, clicked_tile)
 
-        # unhighlighting the clicked piece's move set and updating the window
-        toggle_move_set(self.game_window, self.game_board, clicked_tile[0], clicked_tile[1])
-        p.display.update()
+      # unhighlighting the clicked piece's move set and updating the window
+      get_move_set(game_window, game_board, clicked_tile[0], clicked_tile[1])
+      p.display.update()
 
-      # if tile is not clicked, clicking it should highlight it
-      else:
-        self.game_board[clicked_tile[1]][clicked_tile[0]].is_clicked = True
+def show_move_set(game_window, game_board, clicked_position):
+  clicked_tile = get_clicked_tile(clicked_position)
 
-        draw_tile(self.game_window, self.game_board, TILE_ORIGIN, clicked_tile)
-        draw_piece(self.game_window, game_pieces, clicked_tile)
+  if (game_board[clicked_tile[1]][clicked_tile[0]].piece != None):
+    game_board[clicked_tile[1]][clicked_tile[0]].is_clicked = True
 
-        toggle_move_set(self.game_window, self.game_board, clicked_tile[0], clicked_tile[1])
-        p.display.update()
+    draw_tile(game_window, game_board, TILE_ORIGIN, clicked_tile)
+    draw_piece(game_window, game_pieces, clicked_tile)
+
+    move_set = get_move_set(game_window, game_board, clicked_tile[0], clicked_tile[1])
+    p.display.update()
+
+    return move_set
 
 
 # helper functions
@@ -54,9 +51,15 @@ def draw_piece(game_window, game_pieces, clicked_tile):
   game_window.blit(piece, (pieceCoordX, pieceCoordY))
 
 # TODO: note that for pawns, initial_position needs to be toggled to False after the first move
-# TODO: pawns capture diagonally, but they move forward vertically
-def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
+def get_move_set(game_window, game_board, array_index_x, array_index_y):
   if (game_board[array_index_y][array_index_x].is_clicked):
+
+    # holds all possible moves and captures for the selected piece
+    move_set = {
+      "clicked_index": [array_index_x, array_index_y],
+      "move": [],
+      "capture": []
+    }
 
     # iterating through all directions in the piece's move set
     for i in game_board[array_index_y][array_index_x].piece.move_set:
@@ -84,6 +87,10 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
 
               draw_tile(game_window, game_board, TILE_CAPTURE, [current_index_x, current_index_y])
               draw_piece(game_window, game_pieces, [current_index_x, current_index_y])
+
+              # adding the tile to the move set to be returned
+              move_set["capture"].append(game_board[current_index_y][current_index_x])
+
               break
             else:
               break
@@ -95,8 +102,16 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
                 break
 
             draw_tile(game_window, game_board, TILE_DESTINATION, [current_index_x, current_index_y])
+
+            # adding the tile to the move set to be returned
+            move_set["move"].append(game_board[current_index_y][current_index_x])
+
         else:
           break
+
+    # returning the move set of clicked piece. 
+    # unclicking a piece will not return a move set.
+    return move_set
 
   else:
     for i in game_board[array_index_y][array_index_x].piece.move_set:
@@ -136,7 +151,7 @@ def toggle_move_set(game_window, game_board, array_index_x, array_index_y):
           break
 
 
-# helper function for toggle_move_set
+# helper function for get_move_set
 def get_move_tile_index(current_move, current_index_x, current_index_y):
   current_move_set = current_move.split("_")
 
