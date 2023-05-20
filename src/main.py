@@ -1,11 +1,11 @@
 import pygame as p
 
-from config import WINDOW_SIZE
-from toggle_move_set import show_move_set, hide_move_set, draw_tile
+from config import WINDOW_SIZE, TILE_SIZE, WINDOW_BORDER, PIECE_BORDER
+from toggle_move_set import show_move_set, hide_move_set
 from get_clicked_tile import get_clicked_tile
 from GameBoard import GameBoard
 from initialize_board import initialize_board
-from config import *
+from move_and_capture import move_and_capture
 
 tile_turn = "white"
 
@@ -45,25 +45,27 @@ while True:
     elif (current_piece == None):
       print("Just an ordinary tile")
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("move")):
-        print("This is a valid move")
+        move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
+
+        if (board.game_board[current_tile[1]][current_tile[0]].piece.piece_type == "pawn"):
+          # print("OOGA OOGA YES")
+          print(board.game_board[1][2] == board.game_board[1][3])
+          board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
+          #TODO: change move set of a pawn after it moves once
+
+        if (tile_turn == "white"):
+          tile_turn = "black"
+        else:
+          tile_turn = "white"
+
+        current_tile_pos = None
+        previous_tile_pos = None
+        current_move_set = None
       continue
 
     elif (current_piece.colour != tile_turn):
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("capture")):
-        print("This is a valid capture")
-        hide_move_set(game_window, board.game_board, previous_tile_pos)
-        
-        previous_tile = get_clicked_tile(previous_tile_pos)
-        board.game_board[current_tile[1]][current_tile[0]].piece = board.game_board[previous_tile[1]][previous_tile[0]].piece
-        piece = board.game_board[previous_tile[1]][previous_tile[0]].piece.image.convert_alpha()
-        board.game_board[previous_tile[1]][previous_tile[0]].piece = None
-        print(board.game_board[current_tile[1]][current_tile[0]].colour)
-        p.draw.rect(game_window, board.game_board[previous_tile[1]][previous_tile[0]].colour, board.game_board[previous_tile[1]][previous_tile[0]])
-        pieceCoordX = current_tile[0] * TILE_SIZE + WINDOW_BORDER + PIECE_BORDER
-        pieceCoordY = current_tile[1] * TILE_SIZE + WINDOW_BORDER + PIECE_BORDER
-        p.draw.rect(game_window, board.game_board[current_tile[1]][current_tile[0]].colour, board.game_board[current_tile[1]][current_tile[0]])
-        game_window.blit(piece, (pieceCoordX, pieceCoordY))
-        p.display.update()
+        move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
 
         if (tile_turn == "white"):
           tile_turn = "black"
