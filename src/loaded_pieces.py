@@ -26,3 +26,11 @@ BLACK_KNIGHT = Knight("knight", "black", load_piece("assets/pieces/black_pieces/
 BLACK_BISHOP = Bishop("bishop", "black", load_piece("assets/pieces/black_pieces/Bishop-Black.png"))
 BLACK_QUEEN = Queen("queen", "black", load_piece("assets/pieces/black_pieces/Queen-Black.png"))
 BLACK_KING = King("king", "black", load_piece("assets/pieces/black_pieces/King-Black.png"))
+
+# creates a new instance of a pawn
+def pawn(name):
+  if (name == "white"):
+    return Pawn("pawn", "white", load_piece("assets/pieces/white_pieces/Pawn-White.png"))
+  
+  else:
+    return Pawn("pawn", "black", load_piece("assets/pieces/black_pieces/Pawn-Black.png"))

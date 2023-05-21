@@ -43,15 +43,11 @@ while True:
       previous_tile_pos = current_tile_pos
 
     elif (current_piece == None):
-      print("Just an ordinary tile")
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("move")):
         move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
 
         if (board.game_board[current_tile[1]][current_tile[0]].piece.piece_type == "pawn"):
-          # print("OOGA OOGA YES")
-          print(board.game_board[1][2] == board.game_board[1][3])
           board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
-          #TODO: change move set of a pawn after it moves once
 
         if (tile_turn == "white"):
           tile_turn = "black"
@@ -65,7 +61,11 @@ while True:
 
     elif (current_piece.colour != tile_turn):
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("capture")):
+
         move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
+
+        if (board.game_board[current_tile[1]][current_tile[0]].piece.piece_type == "pawn"):
+          board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
 
         if (tile_turn == "white"):
           tile_turn = "black"
