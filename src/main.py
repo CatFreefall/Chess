@@ -1,4 +1,5 @@
 import pygame as p
+from tkinter import *
 
 from config import WINDOW_SIZE
 from toggle_move_set import show_move_set, hide_move_set
@@ -6,6 +7,8 @@ from get_clicked_tile import get_clicked_tile
 from GameBoard import GameBoard
 from initialize_board import initialize_board
 from move_and_capture import move_and_capture
+from PromotionWindow import PromotionWindow
+from promote_pawn import promote_pawn
 
 tile_turn = "white"
 
@@ -46,15 +49,20 @@ while True:
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("move")):
         move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
 
-        #print(board.game_board[current_tile[1]][current_tile[0]].piece.piece_type)
         if (board.game_board[current_tile[1]][current_tile[0]].piece.piece_type == "pawn"):
+          board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
 
           if (board.game_board[current_tile[1]][current_tile[0]].piece.colour == "white" and current_tile[1] == 0):
             print("white pawn promotion")
+            promotion = PromotionWindow()
+            promotion.run()
+            promote_pawn(game_window, board.game_board, current_tile, promotion.selected_value)
+
           elif(board.game_board[current_tile[1]][current_tile[0]].piece.colour == "black" and current_tile[1] == 7):
             print("black pawn promotion")
-
-          board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
+            promotion = PromotionWindow()
+            promotion.run()
+            promote_pawn(game_window, board.game_board, current_tile, promotion.selected_value)
 
         if (tile_turn == "white"):
           tile_turn = "black"
@@ -69,19 +77,22 @@ while True:
     elif (current_piece.colour != tile_turn):
       if (current_move_set != None and board.game_board[current_tile[1]][current_tile[0]] in current_move_set.get("capture")):
 
-        print(board.game_board[get_clicked_tile(previous_tile_pos)[1]][get_clicked_tile(previous_tile_pos)[0]].piece.piece_type)
-        print(board.game_board[get_clicked_tile(previous_tile_pos)[1]][get_clicked_tile(previous_tile_pos)[0]].piece.colour)
-        print(board.game_board[get_clicked_tile(previous_tile_pos)])
-
-        if (board.game_board[get_clicked_tile(previous_tile_pos)[1]][get_clicked_tile(previous_tile_pos)[0]].piece.colour == "white" and get_clicked_tile(previous_tile_pos)[1] == 0):
-            print("white pawn promotion")
-        elif(board.game_board[get_clicked_tile(previous_tile_pos)[1]][get_clicked_tile(previous_tile_pos)[0]].piece.colour == "black" and get_clicked_tile(previous_tile_pos)[1] == 7):
-          print("black pawn promotion")
-
         move_and_capture(game_window, board.game_board, current_tile, previous_tile_pos)
 
         if (board.game_board[current_tile[1]][current_tile[0]].piece.piece_type == "pawn"):
           board.game_board[current_tile[1]][current_tile[0]].piece.change_move_set()
+
+          if (board.game_board[current_tile[1]][current_tile[0]].piece.colour == "white" and current_tile[1] == 0):
+            print("white pawn promotion")
+            promotion = PromotionWindow()
+            promotion.run()
+            promote_pawn(game_window, board.game_board, current_tile, promotion.selected_value)
+            
+          elif(board.game_board[current_tile[1]][current_tile[0]].piece.colour == "black" and current_tile[1] == 7):
+            print("black pawn promotion")
+            promotion = PromotionWindow()
+            promotion.run()
+            promote_pawn(game_window, board.game_board, current_tile, promotion.selected_value)
 
         if (tile_turn == "white"):
           tile_turn = "black"
